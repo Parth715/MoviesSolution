@@ -8,6 +8,8 @@ namespace Movies
 {
     class Movie
     {
+        private static int NextId { get; set; } = 1;
+
         public int Id { get; set; }
         public string Title { get; set; }
         public string Genre { get; set; }
@@ -16,18 +18,22 @@ namespace Movies
         public int RunTimeInMinutes { get; set; }
         public string Director { get; set; }
 
-        public void SetRunTimeInMinutes(int Hours, int Minutes)
+        public static int SetRunTimeInMinutes(int Hours, int Minutes)
         {
-            this.RunTimeInMinutes = Hours * 60 + Minutes;
+          return Hours * 60 + Minutes;
         }
         
 
 
         public Movie() { } //default constructor
 
-        public Movie(int id, string title, string genre, string rating, int released, int runtimeinminutes, string director) //constructor
+        public Movie(string title, string genre, string rating, int released, int runtimeinminutes, string director) //constructor
         {
-            this.Id = id;
+            this.Id = NextId++;
+            if (NextId > 2) {
+                NextId = 1;
+            }
+
             this.Title = title;
             this.Genre = genre;
             this.Rating = rating;
